@@ -1,4 +1,3 @@
-
 # Sentris
 
 **The AI SOC analyst copilot.**
@@ -107,7 +106,7 @@ incident report — and adds an on-demand deep-dive (**Investigate**) for
 any indicator an analyst wants to check by hand.
 
 Full product rationale, database design, and API surface live in
-[`plans/ENGINEERING_PLAN.md`](plans/ENGINEERING_PLAN.md). The reasoning
+[`docs/ENGINEERING_PLAN.md`](docs/ENGINEERING_PLAN.md). The reasoning
 behind the major technical decisions — why FastAPI, why LiteLLM,
 why every integration is mock-first, why the frontend is built the way
 it is — lives in [`docs/adr/`](docs/adr/).
