@@ -1,0 +1,54 @@
+{
+  "name": "Encoded PowerShell -> C2 beacon -> dropped payload",
+  "description": "A phishing macro launches obfuscated PowerShell, which beacons out to a known C2 domain and drops a second-stage payload.",
+  "alerts": [
+    {
+      "delay": 0,
+      "source": "sysmon",
+      "external_id": "sysmon-1-4471",
+      "title": "Suspicious encoded PowerShell execution spawned from Office document",
+      "rule_name": "powershell_encodedcommand_from_office",
+      "severity": "high",
+      "src_ip": "10.0.2.31",
+      "user_subject": "j.alvarez",
+      "raw": {
+        "event_id": 1,
+        "parent_process": "winword.exe",
+        "process": "powershell.exe",
+        "command_line": "powershell.exe -nop -w hidden -EncodedCommand JABzAD0ATgBlAHcALQBP..."
+      }
+    },
+    {
+      "delay": 8,
+      "source": "suricata",
+      "external_id": "suricata-2210042-771",
+      "title": "DNS query and outbound beacon to known C2 domain",
+      "rule_name": "dns_c2_domain_lookup",
+      "severity": "critical",
+      "src_ip": "10.0.2.31",
+      "dst_ip": "45.155.205.233",
+      "user_subject": "j.alvarez",
+      "raw": {
+        "signature_id": 2210042,
+        "dns_query": "cdn-update-service.duckdns.org",
+        "resolved_ip": "45.155.205.233",
+        "bytes_out": 4821
+      }
+    },
+    {
+      "delay": 20,
+      "source": "sysmon",
+      "external_id": "sysmon-11-4488",
+      "title": "Second-stage payload written to disk after PowerShell beacon",
+      "rule_name": "suspicious_payload_write_temp",
+      "severity": "critical",
+      "src_ip": "10.0.2.31",
+      "user_subject": "j.alvarez",
+      "raw": {
+        "event_id": 11,
+        "target_filename": "C:\\Users\\j.alvarez\\AppData\\Local\\Temp\\svchost_update.exe",
+        "sha256": "a91f2c6e8b3d4f1a9c7e5b2d8f4a6c1e3b9d7f5a2c8e4b6d1f9a3c7e5b8d2f4a"
+      }
+    }
+  ]
+}

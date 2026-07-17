@@ -1,0 +1,51 @@
+{
+  "name": "External port scan -> reconnaissance sweep",
+  "description": "A single external host sweeps the perimeter looking for open services before any exploitation attempt.",
+  "alerts": [
+    {
+      "delay": 0,
+      "source": "suricata",
+      "external_id": "suricata-2019401-330",
+      "title": "TCP port scan detected against perimeter hosts",
+      "rule_name": "perimeter_port_scan_threshold",
+      "severity": "low",
+      "src_ip": "194.165.16.71",
+      "dst_ip": "10.0.1.10",
+      "raw": {
+        "signature_id": 2019401,
+        "ports_scanned": [22, 80, 443, 3389, 8080],
+        "scan_type": "SYN"
+      }
+    },
+    {
+      "delay": 6,
+      "source": "suricata",
+      "external_id": "suricata-2019401-331",
+      "title": "TCP port scan detected against perimeter hosts",
+      "rule_name": "perimeter_port_scan_threshold",
+      "severity": "low",
+      "src_ip": "194.165.16.71",
+      "dst_ip": "10.0.1.11",
+      "raw": {
+        "signature_id": 2019401,
+        "ports_scanned": [22, 80, 443, 3389, 8080],
+        "scan_type": "SYN"
+      }
+    },
+    {
+      "delay": 14,
+      "source": "suricata",
+      "external_id": "suricata-2019402-118",
+      "title": "RDP exposure identified during external port scan",
+      "rule_name": "rdp_exposed_after_scan",
+      "severity": "medium",
+      "src_ip": "194.165.16.71",
+      "dst_ip": "10.0.1.11",
+      "raw": {
+        "signature_id": 2019402,
+        "open_port": 3389,
+        "service": "ms-wbt-server"
+      }
+    }
+  ]
+}

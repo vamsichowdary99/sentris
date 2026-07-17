@@ -1,0 +1,38 @@
+{
+  "name": "Off-hours bulk exfil to an unclassified external host",
+  "description": "A borderline case for analyst judgment: a large outbound transfer during off-hours to a host with no strong reputation signal either way.",
+  "alerts": [
+    {
+      "delay": 0,
+      "source": "suricata",
+      "external_id": "suricata-2240071-552",
+      "title": "Large outbound data transfer during off-hours",
+      "rule_name": "off_hours_bulk_egress",
+      "severity": "medium",
+      "src_ip": "10.0.3.44",
+      "dst_ip": "203.0.113.77",
+      "user_subject": "d.okafor",
+      "raw": {
+        "signature_id": 2240071,
+        "bytes_out": 918273645,
+        "duration_seconds": 340,
+        "hour_local": 2
+      }
+    },
+    {
+      "delay": 15,
+      "source": "wazuh",
+      "external_id": "wazuh-6612-901",
+      "title": "Sensitive file share accessed shortly before exfil-pattern transfer",
+      "rule_name": "sensitive_share_access_before_egress",
+      "severity": "medium",
+      "src_ip": "10.0.3.44",
+      "user_subject": "d.okafor",
+      "raw": {
+        "rule_id": 6612,
+        "share": "\\\\fileserver01\\finance-confidential",
+        "files_accessed": 214
+      }
+    }
+  ]
+}

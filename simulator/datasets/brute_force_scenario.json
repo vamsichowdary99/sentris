@@ -1,0 +1,56 @@
+{
+  "name": "Brute-force SSH -> valid account -> lateral tooling",
+  "description": "A Tor-adjacent scanner brute-forces a service account over SSH, succeeds, then pivots into a living-off-the-land recon step.",
+  "alerts": [
+    {
+      "delay": 0,
+      "source": "wazuh",
+      "external_id": "wazuh-5710-8841",
+      "title": "Multiple failed SSH authentication attempts (brute force pattern)",
+      "rule_name": "sshd_auth_failures_threshold",
+      "severity": "medium",
+      "src_ip": "185.220.101.45",
+      "dst_ip": "10.0.4.12",
+      "user_subject": "svc-backup",
+      "raw": {
+        "rule_id": 5710,
+        "log_count": 23,
+        "protocol": "ssh",
+        "window_seconds": 90,
+        "geoip_country": "Unknown (Tor exit)"
+      }
+    },
+    {
+      "delay": 12,
+      "source": "wazuh",
+      "external_id": "wazuh-5715-8842",
+      "title": "SSH authentication success following brute force (valid account)",
+      "rule_name": "sshd_auth_success_after_failures",
+      "severity": "high",
+      "src_ip": "185.220.101.45",
+      "dst_ip": "10.0.4.12",
+      "user_subject": "svc-backup",
+      "raw": {
+        "rule_id": 5715,
+        "protocol": "ssh",
+        "prior_failures": 23,
+        "session_id": "sess-7f21a9"
+      }
+    },
+    {
+      "delay": 25,
+      "source": "sysmon",
+      "external_id": "sysmon-1-9931",
+      "title": "Reconnaissance commands executed by valid account after remote logon",
+      "rule_name": "post_logon_recon_commands",
+      "severity": "high",
+      "src_ip": "10.0.4.12",
+      "user_subject": "svc-backup",
+      "raw": {
+        "event_id": 1,
+        "commands": ["whoami /all", "net group \"domain admins\" /domain", "arp -a"],
+        "parent_process": "sshd.exe"
+      }
+    }
+  ]
+}
