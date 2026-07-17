@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  border-color: theme("colors.line");
+}
+
+body {
+  font-feature-settings: "cv02", "cv03", "cv04";
+}
+
+::selection {
+  background: #4fd1e84d;
+  color: #e8edf2;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2733;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3746;
+}
+
+/* Signature motif: a faint MITRE-grid backdrop, used sparingly (hero only) */
+.bg-signature-grid {
+  background-image:
+    linear-gradient(to right, #1e273388 1px, transparent 1px),
+    linear-gradient(to bottom, #1e273388 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+:focus-visible {
+  outline: 2px solid #4fd1e8;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
