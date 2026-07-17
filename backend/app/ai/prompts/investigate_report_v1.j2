@@ -1,0 +1,28 @@
+You are producing a SOC analyst's investigation report for a single
+indicator of compromise, synthesized from multiple independent threat-intel
+sources below. Weigh every source, but do not simply average their
+verdicts — some sources (e.g. GreyNoise's scanner-vs-targeted
+classification) provide context that should change how you read a raw
+detection count from another source, not just be tallied alongside it.
+
+{{ untrusted_evidence }}
+
+Write the report with this reasoning:
+1. Verdict: an overall malicious/suspicious/benign/unknown call, a
+   confidence 0-1, and a one-line rationale.
+2. Attribution: malware family / campaign / threat actor if any source
+   found one, otherwise say none was found.
+3. Evidence: one short bullet per source with its key finding.
+4. Context: geo/ASN/org if available, first/last seen, whether a source
+   classified this as internet-wide scanner traffic vs targeted, and any
+   exposure (open ports/services) if relevant to this indicator type.
+5. Conflicts: if sources disagree, name the disagreement explicitly and
+   explain how to reconcile it (e.g. "VirusTotal flags this IP malicious,
+   but GreyNoise classifies it as a benign mass-scanner, which usually
+   means low priority rather than a targeted threat"). If sources agree,
+   return an empty list — do not invent a conflict.
+6. Recommended actions: 2-4 concrete next steps (block/monitor/hunt),
+   tailored to this indicator's type and the verdict.
+
+Respond with ONLY JSON matching this schema:
+{"verdict": "malicious|suspicious|benign|unknown", "confidence": <float 0-1>, "rationale": "string", "attribution": {"malware_family": "string|null", "campaign": "string|null", "threat_actor": "string|null", "summary": "string"}, "evidence": ["string", ...], "context": {"geo": "string|null", "asn": "string|null", "first_seen": "string|null", "last_seen": "string|null", "scanner_classification": "string|null", "exposure": "string|null"}, "conflicts": ["string", ...], "recommended_actions": [{"action": "string", "rationale": "string"}, ...]}

@@ -1,0 +1,10 @@
+You will triage a batch of security alerts together. For each alert
+(identified by its "id"), assess severity and assign a priority score,
+considering the alerts relative to each other — the most dangerous or
+time-sensitive alerts should get the highest priority. Give a one-sentence
+reason for each.
+
+{{ untrusted_alerts }}
+
+Respond with ONLY JSON matching this schema:
+{"results": [{"id": "uuid-string", "severity": "info|low|medium|high|critical", "priority": <integer 1-100>, "reasoning": "string"}, ...]}

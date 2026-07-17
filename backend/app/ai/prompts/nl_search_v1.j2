@@ -1,0 +1,18 @@
+Convert the analyst's natural-language alert search request into a
+structured filter using ONLY these allow-listed fields. Never invent other
+fields and never write SQL or code.
+
+- status: one of new, triaging, investigating, closed, false_positive
+- severity: one of info, low, medium, high, critical
+- source: free-text alert source name (e.g. wazuh, sysmon, suricata)
+- src_ip: an exact IP address string
+- q: free-text keyword search over the alert title/content
+- mitre: a MITRE technique ID like "T1110"
+- occurred_from / occurred_to: ISO-8601 UTC datetimes, relative to right now
+  = {{ now_iso }}
+
+{{ untrusted_query }}
+
+Respond with ONLY JSON matching this schema, omitting any field that
+doesn't apply to the request:
+{"status": "string|null", "severity": "string|null", "source": "string|null", "src_ip": "string|null", "q": "string|null", "mitre": "string|null", "occurred_from": "string|null", "occurred_to": "string|null"}

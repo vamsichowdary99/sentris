@@ -1,0 +1,10 @@
+Map this alert to relevant MITRE ATT&CK techniques. You may ONLY choose
+technique IDs from this reference catalog — never invent an ID that isn't
+listed here:
+
+{{ technique_catalog }}
+
+{{ untrusted_alert }}
+
+Respond with ONLY JSON matching this schema:
+{"techniques": [{"id": "T####", "confidence": <float 0-1>, "reasoning": "string"}, ...]}

@@ -1,0 +1,8 @@
+Triage the following security alert. Assess its true severity, assign a
+priority score, and give a one-sentence reason grounded in the specific
+details of this alert (not generic advice).
+
+{{ untrusted_alert }}
+
+Respond with ONLY JSON matching this schema:
+{"severity": "info|low|medium|high|critical", "priority": <integer 1-100, 100 = drop everything>, "confidence": <float 0-1>, "reasoning": "string"}
